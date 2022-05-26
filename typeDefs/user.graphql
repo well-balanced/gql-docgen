@@ -1,0 +1,44 @@
+enum Gender {
+  Man
+  Woman
+}
+
+type User {
+  id: ID!
+  "이름입니다."
+  name: String!
+  gender: Gender
+}
+
+input A {
+  id: ID!
+}
+type Query {
+  """
+  @req
+  ```graphql
+  query {}
+  ```
+
+  @res
+  ```json
+  { "hello": "world" }
+  ```
+
+  @desc
+  내 정보를 가져옵니다
+
+  @errors
+  """
+  me(id: A!): User!
+}
+
+input CreateMeInput {
+  name: String!
+  gender: Gender
+}
+
+type Mutation {
+  createMe(input: CreateMeInput!): User!
+}
+

@@ -45,7 +45,6 @@ The `@req` tag inside the docstring is shown as a block of code in the paragraph
 ```graphql
 type Query {
     """
-    @desc Gets guest's cart items
     @req
     ```graphql
         query GetGuestCart(input: $input) {

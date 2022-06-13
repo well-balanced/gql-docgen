@@ -1,51 +1,16 @@
-import { GraphQLSchema, ClassifiedType } from '@types'
-import { sortBy } from 'lodash'
+import { JsonGraphQLSchemaMap } from '@types'
+import { MarkdownRenderer } from './renderer'
+import { SchemaManager } from './schemaManager'
+import { classifyAllByType, classifyByType } from './classification'
 
-export function schemaToMdx(schema: GraphQLSchema) {
-  const classified = classifyByType(schema)
-  console.log(classified.objects[0].fields)
-}
+export async function schemaToMdx(schemaMap: JsonGraphQLSchemaMap) {
+  const globalTypeMap = classifyAllByType(schemaMap)
+  const schemaManager = new SchemaManager(globalTypeMap)
 
-function classifyByType(schema: GraphQLSchema): ClassifiedType {
-  const initialValue = {
-    queries: [],
-    mutations: [],
-    subscriptions: [],
-    objects: [],
-    inputs: [],
-    enums: [],
-    scalars: [],
-    interfaces: [],
-    unions: [],
-  }
-  const defaultScalars = ['Boolean', 'ID', 'String']
-  return sortBy(schema.types, ['name'])
-    .filter((type) => !type.name.includes('__'))
-    .filter((type) => !defaultScalars.includes(type.name))
-    .reduce((prev, curr) => {
-      const isResolver = ['Query', 'Mutation', 'Subscription'].includes(
-        curr.name
-      )
-      return {
-        ...prev,
-        ...(curr.name === 'Query' && {
-          queries: [...prev.queries, ...curr.fields],
-        }),
-        ...(curr.name === 'Mutation' && {
-          mutations: [...prev.mutations, ...curr.fields],
-        }),
-        ...(curr.name === 'Subscription' && {
-          subscriptions: [...prev.mutations, ...curr.fields],
-        }),
-        ...(!isResolver &&
-          curr.kind === 'OBJECT' && { objects: [...prev.objects, curr] }),
-        ...(curr.kind === 'INPUT_OBJECT' && { inputs: [...prev.inputs, curr] }),
-        ...(curr.kind === 'ENUM' && { enums: [...prev.enums, curr] }),
-        ...(curr.kind === 'SCALAR' && { scalars: [...prev.scalars, curr] }),
-        ...(curr.kind === 'INTERFACE' && {
-          interfaces: [...prev.interfaces, curr],
-        }),
-        ...(curr.kind === 'UNION' && { unions: [...prev.unions, curr] }),
-      }
-    }, initialValue)
+  return Object.entries(schemaMap).reduce((prev, [title, schema]) => {
+    const classified = classifyByType(schema)
+    const renderer = new MarkdownRenderer(schemaManager)
+    const mdx = renderer.renderDocument(classified, title)
+    return { ...prev, [title]: mdx }
+  }, {} as Record<string, string>)
 }

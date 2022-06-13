@@ -1,8 +1,22 @@
 {
   "name": "gql-docgen",
-  "version": "0.0.1",
+  "version": "0.1.12",
   "description": "documentation generator for GraphQL API",
-  "main": "dist/index.js",
+  "main": "tsc",
+  "bin": {
+    "gql-docgen": "./dist/index.js"
+  },
+  "files": ["dist"],
+  "homepage": "https://github.com/well-balanced/gql-docgen",
+  "bugs": {
+    "url": "https://github.com/well-balanced/gql-docgen/issues",
+    "email": "iam.woosik.kim@gmail.com"
+  },
+  "author": "Woosik Kim <iam.woosik.kim@gmail.com> (https://github.com/well-balanced)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/well-balanced/gql-docgen.git"
+  },
   "scripts": {
     "docgen": "ts-node index.ts typeDefs ./out"
   },
@@ -22,10 +36,10 @@
     "minimist": "^1.2.6"
   },
   "devDependencies": {
-    "@types/node": "^17.0.42",
     "@types/axios": "^0.14.0",
     "@types/lodash": "^4.14.182",
     "@types/minimist": "^1.2.2",
+    "@types/node": "^17.0.42",
     "ts-node": "^10.8.0",
     "typescript": "^4.7.2"
   }

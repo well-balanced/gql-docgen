@@ -95,3 +95,22 @@ type Query {
     guestCart(input: GetCartByGuestInput!): GetCartPayload!
 }
 ```
+
+### Options
+
+**headers**
+
+when you fetch schemas from your graphql api, you might need to set your authorization key. if you attach `headers` option, you can.
+
+```sh
+$ npx gql-docgen https://your-gql-api/graphql ./out --header "Authorization=[your token]"
+```
+
+**title**
+
+you can set your filename with `title` option.
+
+```sh
+# generated "commerce.mdx"
+$ npx gql-docgen ./schema.graphql ./out --title Commerce
+```

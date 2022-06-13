@@ -28,7 +28,7 @@ export async function loadSchemas(
   }
 
   if (path.includes('.graphql') || path.includes('.gql')) {
-    return await readSchema(path)
+    return await readSchema(path, title)
   }
 
   const stat = await fs.stat(path)

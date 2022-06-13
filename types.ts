@@ -9,7 +9,11 @@ export interface Headers {
   [k: string]: string
 }
 
-export interface GraphQLSchema {
+export interface JsonGraphQLSchemaMap {
+  [key: string]: JsonGraphQLSchema
+}
+
+export interface JsonGraphQLSchema {
   queryType: any
   mutationType: any
   subscriptionType: any
@@ -21,14 +25,14 @@ export interface GraphQLType {
   kind: string
   name: string
   description: string | null
-  fields: GraphQLField[]
-  inputFields: any
-  enumValues: any
+  fields: GraphQLResolver[]
+  inputFields: GraphQLResolver[]
+  enumValues: EnumValue[]
   interfaces: any
-  possibleTypes: any
+  possibleTypes: FieldType[]
 }
 
-export interface GraphQLField {
+export interface GraphQLResolver {
   name: string
   description: string | null
   args: FieldArgument[]
@@ -50,8 +54,20 @@ export interface FieldType {
 }
 
 export interface ClassifiedType {
-  queries: GraphQLField[]
-  mutations: GraphQLField[]
-  subscriptions: GraphQLField[]
+  queries: GraphQLResolver[]
+  mutations: GraphQLResolver[]
+  subscriptions: GraphQLResolver[]
   objects: GraphQLType[]
+  inputs: GraphQLType[]
+  enums: GraphQLType[]
+  scalars: GraphQLType[]
+  interfaces: GraphQLType[]
+  unions: GraphQLType[]
+}
+
+export interface EnumValue {
+  name: string
+  description: string
+  isDeprecated: boolean
+  deprecationReason: string | null
 }

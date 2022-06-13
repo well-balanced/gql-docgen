@@ -1,10 +1,10 @@
 {
-  "name": "gql-mdx",
+  "name": "gql-docgen",
   "version": "0.0.1",
-  "description": "Generate MDX from the GraphQL Schema",
+  "description": "documentation generator for GraphQL API",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "docgen": "ts-node index.ts typeDefs ./out"
   },
   "keywords": [
     "graphql",
@@ -14,17 +14,17 @@
     "mdx",
     "markdown"
   ],
-  "author": "well-balanced",
   "license": "MIT",
   "dependencies": {
-    "@types/axios": "^0.14.0",
-    "@types/lodash": "^4.14.182",
     "axios": "^0.27.2",
     "graphql": "^16.5.0",
     "lodash": "^4.17.21",
     "minimist": "^1.2.6"
   },
   "devDependencies": {
+    "@types/node": "^17.0.42",
+    "@types/axios": "^0.14.0",
+    "@types/lodash": "^4.14.182",
     "@types/minimist": "^1.2.2",
     "ts-node": "^10.8.0",
     "typescript": "^4.7.2"

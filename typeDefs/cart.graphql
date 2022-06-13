@@ -1,0 +1,225 @@
+"Episode"
+enum Episode {
+  "kind of episode"
+  NEWHOPE
+  "kind of episode"
+  EMPIRE
+  "kind of episode"
+  JEDI
+}
+
+"I'm a Character"
+interface Character {
+  "Hi, hello"
+  id: ID!
+  name: String!
+  appearsIn: [Episode]!
+}
+
+"""
+Variant is a option for dividing products
+
+example
+```json
+{ "name": "size", value: "L" }
+```
+"""
+type VariantOption {
+  "name for option"
+  name: String!
+  "value for option"
+  value: String!
+}
+
+type Variant {
+  _id: ID!
+  "price of variant"
+  price: Price!
+  "variant options"
+  options: [VariantOption!]!
+}
+
+type Price {
+  "original price"
+  original: Int!
+}
+
+"Items in the cart"
+type CartItem {
+  _id: String!
+  name: String!
+  "price"
+  price: Price!
+  "quantity"
+  quantity: Int!
+  "variant"
+  variant: Variant!
+}
+
+type GetCartPayload {
+  "items in the cart"
+  items: [CartItem]!
+  "total price"
+  total: Int!
+}
+
+input AddCartItemInput {
+  "product id for cart"
+  productId: ID!
+  "variant id for cart"
+  variantId: ID!
+  "quantity"
+  quantity: Int!
+}
+
+type AddCartPayload {
+  _id: String!
+  "product id for cart"
+  productId: ID!
+  "variant id for cart"
+  variantId: ID!
+  "quantity"
+  quantity: Int!
+}
+
+input PreCheckoutInput {
+  "list of cart items that need to be calculated before checkout"
+  items: [PreCheckoutItem!]!
+}
+
+type PreCheckoutItem {
+  _id: ID!
+  "product id for cart"
+  productId: String!
+  "variant id for cart"
+  variantId: String!
+  "quantity"
+  quantity: Int!
+}
+
+input GetCartByGuestInput {
+  "items in the cart"
+  items: [GuestCartItem!]!
+}
+
+type GuestCartItem {
+  _id: ID!
+  "product id for cart"
+  productId: String!
+  "variant id for cart"
+  variantId: String!
+  "quantity"
+  quantity: Int!
+}
+
+input UpdateCartItemQuantityInput {
+  _id: ID!
+  "quantity"
+  quantity: Int!
+}
+
+type UpdateCartItemQuantityPayload {
+  _id: ID!
+  "id of the changed product"
+  productId: String!
+  "id of the changed variant"
+  variantId: String!
+  "modified quantity"
+  quantity: Int!
+}
+
+type Query {
+  """
+    @desc Gets the list of customer's cart items
+          @req
+          ```graphql
+    query {
+      cart {
+         items {
+           name
+          price {
+            original
+          }
+          variant {
+            options {
+              name
+              value
+            }
+          }
+        }
+        total
+      }
+    }
+          ```
+
+          @res
+          ```json
+  {
+    "data": {
+      "cart": {
+        "items": [
+          {
+            "name": "test",
+            "price": {
+              "original": 4
+            },
+            "variant": {
+              "options": [
+                {
+                  "name": "size",
+                  "value": "b"
+                }
+              ]
+            }
+          }
+        ],
+        "total": 5
+      }
+    }
+  }
+          ```
+  """
+  cart: [GetCartPayload!]!
+  """
+  @desc Gets guest's cart items
+  @req
+  ```graphql
+  query GetGuestCart(input: $input) {
+   items {
+    _id
+    name
+    quantit
+   }
+   total
+  }
+  ```
+
+  @res
+  ```json
+  {
+    "data": {
+      "items": {
+        ...
+      }
+    }
+  }
+  ```
+  """
+  guestCart(input: GetCartByGuestInput!): GetCartPayload!
+}
+
+type Mutation {
+  addCartItem(input: AddCartItemInput!): AddCartPayload!
+  deleteCartItem(cartItemId: ID!): Boolean!
+  emptyCart: Boolean!
+  preCheckout(input: PreCheckoutInput!): GetCartPayload!
+  updateCartItemQuantity(
+    input: UpdateCartItemQuantityInput!
+  ): UpdateCartItemQuantityPayload!
+}
+
+type Subscription {
+  commentAdded(postID: ID!): AddCartPayload!
+}
+
+union SearchResult = UpdateCartItemQuantityPayload | AddCartPayload

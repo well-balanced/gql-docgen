@@ -1,0 +1,1334 @@
+---
+title: Cart
+---
+
+## Query
+
+### cart
+Gets the list of customer's cart items
+
+
+<strong style="font-size: 14px;">Request</strong>
+
+
+```graphql
+  query {
+    cart {
+       items {
+         name
+        price {
+          original
+        }
+        variant {
+          options {
+            name
+            value
+          }
+        }
+      }
+      total
+    }
+  }
+```
+
+<strong style="font-size: 14px;">Response</strong>
+
+
+```json
+{
+  "data": {
+    "cart": {
+      "items": [
+        {
+          "name": "test",
+          "price": {
+            "original": 4
+          },
+          "variant": {
+            "options": [
+              {
+                "name": "size",
+                "value": "b"
+              }
+            ]
+          }
+        }
+      ],
+      "total": 5
+    }
+  }
+}
+```
+
+
+
+
+<strong style="font-size: 14px;">Returns</strong>
+
+
+
+
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Require</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>items</td>
+<td>
+<a href="#cartitem">
+[CartItem]!
+</a>
+</td>
+<td>items in the cart</td>
+<td>true</td>
+</tr>
+<tr>
+<td>total</td>
+<td>
+<a href="#int">
+Int!
+</a>
+</td>
+<td>total price</td>
+<td>true</td>
+</tr></tbody>
+</table>
+
+
+
+### guestCart
+Gets guest's cart items
+
+
+<strong style="font-size: 14px;">Request</strong>
+
+
+```graphql
+query GetGuestCart(input: $input) {
+ items {
+  _id
+  name
+  quantit
+ }
+ total
+}
+```
+
+<strong style="font-size: 14px;">Response</strong>
+
+
+```json
+{
+  "data": {
+    "items": {
+      ...
+    }
+  }
+}
+```
+
+<strong style="font-size: 14px;">Arguments</strong>
+
+
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Require</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>input</td>
+<td>
+<a href="#getcartbyguestinput">GetCartByGuestInput</a>
+</td>
+<td></td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+
+<strong style="font-size: 14px;">Returns</strong>
+
+
+
+
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Require</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>items</td>
+<td>
+<a href="#cartitem">
+[CartItem]!
+</a>
+</td>
+<td>items in the cart</td>
+<td>true</td>
+</tr>
+<tr>
+<td>total</td>
+<td>
+<a href="#int">
+Int!
+</a>
+</td>
+<td>total price</td>
+<td>true</td>
+</tr></tbody>
+</table>
+
+
+
+
+## Mutation
+
+### addCartItem
+
+
+
+
+
+
+
+
+
+<strong style="font-size: 14px;">Arguments</strong>
+
+
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Require</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>input</td>
+<td>
+<a href="#addcartiteminput">AddCartItemInput</a>
+</td>
+<td></td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+
+<strong style="font-size: 14px;">Returns</strong>
+
+
+
+
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Require</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>_id</td>
+<td>
+<a href="#string">
+String!
+</a>
+</td>
+<td></td>
+<td>true</td>
+</tr>
+<tr>
+<td>productId</td>
+<td>
+<a href="#id">
+ID!
+</a>
+</td>
+<td>product id for cart</td>
+<td>true</td>
+</tr>
+<tr>
+<td>variantId</td>
+<td>
+<a href="#id">
+ID!
+</a>
+</td>
+<td>variant id for cart</td>
+<td>true</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>
+<a href="#int">
+Int!
+</a>
+</td>
+<td>quantity</td>
+<td>true</td>
+</tr></tbody>
+</table>
+
+
+
+### deleteCartItem
+
+
+
+
+
+
+
+
+
+<strong style="font-size: 14px;">Arguments</strong>
+
+
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Require</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cartItemId</td>
+<td>
+<a href="#id">ID</a>
+</td>
+<td></td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+
+<strong style="font-size: 14px;">Returns</strong>
+
+
+<table>
+<thead>
+<tr>
+<th align="left">Type</th>
+<th align="left">Require</th>
+</tr>
+</thead>
+<tbody>
+<td>
+<a href="#boolean">Boolean!</a>
+</td>
+<td>true</td>
+</tbody>
+</table>
+
+
+
+
+### emptyCart
+
+
+
+
+
+
+
+
+
+
+
+
+<strong style="font-size: 14px;">Returns</strong>
+
+
+<table>
+<thead>
+<tr>
+<th align="left">Type</th>
+<th align="left">Require</th>
+</tr>
+</thead>
+<tbody>
+<td>
+<a href="#boolean">Boolean!</a>
+</td>
+<td>true</td>
+</tbody>
+</table>
+
+
+
+
+### preCheckout
+
+
+
+
+
+
+
+
+
+<strong style="font-size: 14px;">Arguments</strong>
+
+
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Require</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>input</td>
+<td>
+<a href="#precheckoutinput">PreCheckoutInput</a>
+</td>
+<td></td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+
+<strong style="font-size: 14px;">Returns</strong>
+
+
+
+
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Require</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>items</td>
+<td>
+<a href="#cartitem">
+[CartItem]!
+</a>
+</td>
+<td>items in the cart</td>
+<td>true</td>
+</tr>
+<tr>
+<td>total</td>
+<td>
+<a href="#int">
+Int!
+</a>
+</td>
+<td>total price</td>
+<td>true</td>
+</tr></tbody>
+</table>
+
+
+
+### updateCartItemQuantity
+
+
+
+
+
+
+
+
+
+<strong style="font-size: 14px;">Arguments</strong>
+
+
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Require</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>input</td>
+<td>
+<a href="#updatecartitemquantityinput">UpdateCartItemQuantityInput</a>
+</td>
+<td></td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+
+<strong style="font-size: 14px;">Returns</strong>
+
+
+
+
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Require</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>_id</td>
+<td>
+<a href="#id">
+ID!
+</a>
+</td>
+<td></td>
+<td>true</td>
+</tr>
+<tr>
+<td>productId</td>
+<td>
+<a href="#string">
+String!
+</a>
+</td>
+<td>id of the changed product</td>
+<td>true</td>
+</tr>
+<tr>
+<td>variantId</td>
+<td>
+<a href="#string">
+String!
+</a>
+</td>
+<td>id of the changed variant</td>
+<td>true</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>
+<a href="#int">
+Int!
+</a>
+</td>
+<td>modified quantity</td>
+<td>true</td>
+</tr></tbody>
+</table>
+
+
+
+
+## Subscription
+
+### commentAdded
+
+
+
+
+
+
+
+
+
+<strong style="font-size: 14px;">Arguments</strong>
+
+
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Require</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>postID</td>
+<td>
+<a href="#id">ID</a>
+</td>
+<td></td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+
+<strong style="font-size: 14px;">Returns</strong>
+
+
+
+
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Require</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>_id</td>
+<td>
+<a href="#string">
+String!
+</a>
+</td>
+<td></td>
+<td>true</td>
+</tr>
+<tr>
+<td>productId</td>
+<td>
+<a href="#id">
+ID!
+</a>
+</td>
+<td>product id for cart</td>
+<td>true</td>
+</tr>
+<tr>
+<td>variantId</td>
+<td>
+<a href="#id">
+ID!
+</a>
+</td>
+<td>variant id for cart</td>
+<td>true</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>
+<a href="#int">
+Int!
+</a>
+</td>
+<td>quantity</td>
+<td>true</td>
+</tr></tbody>
+</table>
+
+
+
+
+## Object
+
+### AddCartPayload
+
+
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Require</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>_id</td>
+<td>
+<a href="#string">
+String!
+</a>
+</td>
+<td></td>
+<td>true</td>
+</tr>
+<tr>
+<td>productId</td>
+<td>
+<a href="#id">
+ID!
+</a>
+</td>
+<td>product id for cart</td>
+<td>true</td>
+</tr>
+<tr>
+<td>variantId</td>
+<td>
+<a href="#id">
+ID!
+</a>
+</td>
+<td>variant id for cart</td>
+<td>true</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>
+<a href="#int">
+Int!
+</a>
+</td>
+<td>quantity</td>
+<td>true</td>
+</tr></tbody>
+</table>
+
+
+### CartItem
+Items in the cart
+
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Require</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>_id</td>
+<td>
+<a href="#string">
+String!
+</a>
+</td>
+<td></td>
+<td>true</td>
+</tr>
+<tr>
+<td>name</td>
+<td>
+<a href="#string">
+String!
+</a>
+</td>
+<td></td>
+<td>true</td>
+</tr>
+<tr>
+<td>price</td>
+<td>
+<a href="#price">
+Price!
+</a>
+</td>
+<td>price</td>
+<td>true</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>
+<a href="#int">
+Int!
+</a>
+</td>
+<td>quantity</td>
+<td>true</td>
+</tr>
+<tr>
+<td>variant</td>
+<td>
+<a href="#variant">
+Variant!
+</a>
+</td>
+<td>variant</td>
+<td>true</td>
+</tr></tbody>
+</table>
+
+
+### GetCartPayload
+
+
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Require</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>items</td>
+<td>
+<a href="#cartitem">
+[CartItem]!
+</a>
+</td>
+<td>items in the cart</td>
+<td>true</td>
+</tr>
+<tr>
+<td>total</td>
+<td>
+<a href="#int">
+Int!
+</a>
+</td>
+<td>total price</td>
+<td>true</td>
+</tr></tbody>
+</table>
+
+
+### GuestCartItem
+
+
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Require</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>_id</td>
+<td>
+<a href="#id">
+ID!
+</a>
+</td>
+<td></td>
+<td>true</td>
+</tr>
+<tr>
+<td>productId</td>
+<td>
+<a href="#string">
+String!
+</a>
+</td>
+<td>product id for cart</td>
+<td>true</td>
+</tr>
+<tr>
+<td>variantId</td>
+<td>
+<a href="#string">
+String!
+</a>
+</td>
+<td>variant id for cart</td>
+<td>true</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>
+<a href="#int">
+Int!
+</a>
+</td>
+<td>quantity</td>
+<td>true</td>
+</tr></tbody>
+</table>
+
+
+### PreCheckoutItem
+
+
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Require</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>_id</td>
+<td>
+<a href="#id">
+ID!
+</a>
+</td>
+<td></td>
+<td>true</td>
+</tr>
+<tr>
+<td>productId</td>
+<td>
+<a href="#string">
+String!
+</a>
+</td>
+<td>product id for cart</td>
+<td>true</td>
+</tr>
+<tr>
+<td>variantId</td>
+<td>
+<a href="#string">
+String!
+</a>
+</td>
+<td>variant id for cart</td>
+<td>true</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>
+<a href="#int">
+Int!
+</a>
+</td>
+<td>quantity</td>
+<td>true</td>
+</tr></tbody>
+</table>
+
+
+### Price
+
+
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Require</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>original</td>
+<td>
+<a href="#int">
+Int!
+</a>
+</td>
+<td>original price</td>
+<td>true</td>
+</tr></tbody>
+</table>
+
+
+### UpdateCartItemQuantityPayload
+
+
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Require</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>_id</td>
+<td>
+<a href="#id">
+ID!
+</a>
+</td>
+<td></td>
+<td>true</td>
+</tr>
+<tr>
+<td>productId</td>
+<td>
+<a href="#string">
+String!
+</a>
+</td>
+<td>id of the changed product</td>
+<td>true</td>
+</tr>
+<tr>
+<td>variantId</td>
+<td>
+<a href="#string">
+String!
+</a>
+</td>
+<td>id of the changed variant</td>
+<td>true</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>
+<a href="#int">
+Int!
+</a>
+</td>
+<td>modified quantity</td>
+<td>true</td>
+</tr></tbody>
+</table>
+
+
+### Variant
+
+
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Require</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>_id</td>
+<td>
+<a href="#id">
+ID!
+</a>
+</td>
+<td></td>
+<td>true</td>
+</tr>
+<tr>
+<td>price</td>
+<td>
+<a href="#price">
+Price!
+</a>
+</td>
+<td>price of variant</td>
+<td>true</td>
+</tr>
+<tr>
+<td>options</td>
+<td>
+<a href="#variantoption">
+[VariantOption!]!
+</a>
+</td>
+<td>variant options</td>
+<td>true</td>
+</tr></tbody>
+</table>
+
+
+### VariantOption
+Variant is a option for dividing products
+
+example
+```json
+{ "name": "size", value: "L" }
+```
+
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Require</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>name</td>
+<td>
+<a href="#string">
+String!
+</a>
+</td>
+<td>name for option</td>
+<td>true</td>
+</tr>
+<tr>
+<td>value</td>
+<td>
+<a href="#string">
+String!
+</a>
+</td>
+<td>value for option</td>
+<td>true</td>
+</tr></tbody>
+</table>
+
+
+
+## Input
+
+### AddCartItemInput
+
+
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Require</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>productId</td>
+<td>
+<a href="#id">
+ID!
+</a>
+</td>
+<td>product id for cart</td>
+<td>true</td>
+</tr>
+<tr>
+<td>variantId</td>
+<td>
+<a href="#id">
+ID!
+</a>
+</td>
+<td>variant id for cart</td>
+<td>true</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>
+<a href="#int">
+Int!
+</a>
+</td>
+<td>quantity</td>
+<td>true</td>
+</tr></tbody>
+</table>
+
+
+### GetCartByGuestInput
+
+
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Require</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>items</td>
+<td>
+<a href="#guestcartitem">
+[GuestCartItem!]!
+</a>
+</td>
+<td>items in the cart</td>
+<td>true</td>
+</tr></tbody>
+</table>
+
+
+### PreCheckoutInput
+
+
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Require</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>items</td>
+<td>
+<a href="#precheckoutitem">
+[PreCheckoutItem!]!
+</a>
+</td>
+<td>list of cart items that need to be calculated before checkout</td>
+<td>true</td>
+</tr></tbody>
+</table>
+
+
+### UpdateCartItemQuantityInput
+
+
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Require</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>_id</td>
+<td>
+<a href="#id">
+ID!
+</a>
+</td>
+<td></td>
+<td>true</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>
+<a href="#int">
+Int!
+</a>
+</td>
+<td>quantity</td>
+<td>true</td>
+</tr></tbody>
+</table>
+
+
+
+## Enum
+
+### Episode
+Episode
+
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NEWHOPE</td>
+<td>kind of episode</td>
+</tr>
+
+
+<tr>
+<td>EMPIRE</td>
+<td>kind of episode</td>
+</tr>
+
+
+<tr>
+<td>JEDI</td>
+<td>kind of episode</td>
+</tr>
+</tbody>
+</table>
+
+
+
+## Interface
+
+### Character
+I'm a Character
+
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Require</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>id</td>
+<td>
+<a href="#id">
+ID!
+</a>
+</td>
+<td>Hi, hello</td>
+<td>true</td>
+</tr>
+<tr>
+<td>name</td>
+<td>
+<a href="#string">
+String!
+</a>
+</td>
+<td></td>
+<td>true</td>
+</tr>
+<tr>
+<td>appearsIn</td>
+<td>
+<a href="#episode">
+[Episode]!
+</a>
+</td>
+<td></td>
+<td>true</td>
+</tr></tbody>
+</table>
+
+
+## Union
+
+### SearchResult
+
+
+<table>
+<thead>
+<tr>
+<th align="left">Possible Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="#updatecartitemquantitypayload">UpdateCartItemQuantityPayload</a>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<a href="#addcartpayload">AddCartPayload</a>
+</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+## Scalar
+
+### Boolean
+The `Boolean` scalar type represents `true` or `false`.
+
+
+### ID
+The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
+
+
+### Int
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
+
+
+### String
+The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+

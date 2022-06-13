@@ -33,3 +33,66 @@ $ npx gql-docgen ./typeDefs ./out
 # file
 $ npx gql-docgen ./schema.gql ./out
 ```
+
+### Reserved tags
+
+the informations can be expressed by attaching a reserved tag in the docstring of the schema file.
+
+**@req**
+
+The `@req` tag inside the docstring is shown as a block of code in the paragraph "Request"
+
+```graphql
+type Query {
+    """
+    @desc Gets guest's cart items
+    @req
+    ```graphql
+        query GetGuestCart(input: $input) {
+            items {
+                _id
+                name
+                quantit
+            }
+            total
+        }
+    ```
+    """
+    guestCart(input: GetCartByGuestInput!): GetCartPayload!
+}
+```
+
+**@res**
+
+The `@res` tag inside the docstring is shown as a block of code in the paragraph "Response"
+
+```graphql
+type Query {
+    """
+    @res
+    ```json
+    {
+        "data:: {
+            "items": {
+                ...
+            }
+        }
+    }
+    ```
+    """
+    guestCart(input: GetCartByGuestInput!): GetCartPayload!
+}
+```
+
+**@desc**
+
+The `@desc` tag adds a description just below the resolver name.
+
+```graphql
+type Query {
+    """
+    @desc Gets the list of customer's cart items
+    """
+    guestCart(input: GetCartByGuestInput!): GetCartPayload!
+}
+```

@@ -1,1 +1,1 @@
-# gql-mdx
+# GraphQL Document Generator

@@ -2,7 +2,7 @@
 
 documentation generator for GraphQL API
 
-<img width="1108" alt="image" src="https://user-images.githubusercontent.com/48206623/173359340-9478d5e5-0dea-4a04-bda4-86439e4030ba.png">
+![image](https://user-images.githubusercontent.com/48206623/173492450-57fd030c-4380-4769-83c2-1cbcdef1e7c8.png)
 
 
 
@@ -47,13 +47,15 @@ type Query {
     """
     @req
     ```graphql
-        query GetGuestCart(input: $input) {
-            items {
-                _id
-                name
-                quantit
+        query GetGuestCart($input: GetCartByGuestInput!) {
+            guestCart(input: $input) {
+                items {
+                    _id
+                    name
+                    quantity
+                }
+                total
             }
-            total
         }
     ```
     """

@@ -4,8 +4,8 @@ documentation generator for GraphQL API
 
 [![NPM Version][npm-image]][npm-url]
 
-[npm-image]: https://img.shields.io/npm/v/wb-mongoose.svg
-[npm-url]: https://npmjs.org/package/wb-mongoose
+[npm-image]: https://img.shields.io/npm/v/gql-docgen.svg
+[npm-url]: https://npmjs.org/package/gql-docgen
 
 
 ![image](https://user-images.githubusercontent.com/48206623/173492450-57fd030c-4380-4769-83c2-1cbcdef1e7c8.png)

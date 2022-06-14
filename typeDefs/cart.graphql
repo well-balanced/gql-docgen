@@ -184,8 +184,8 @@ type Query {
   @desc Gets guest's cart items
   @req
   ```graphql
-  query GetGuestCart(input: $input) {
-   items {
+  query GetGuestCart(input: GetCartByGuestInput!) {
+   items(input: $input) {
     _id
     name
     quantit

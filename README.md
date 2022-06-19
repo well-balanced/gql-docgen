@@ -116,10 +116,9 @@ $ npx gql-docgen https://your-gql-api/graphql ./out --header "Authorization=[you
 
 **title**
 
-you can set your filename with `title` option.
+you can set heading with `title` option.
 
 ```sh
-# generated "commerce.mdx"
 $ npx gql-docgen ./schema.graphql ./out --title Commerce
 ```
 
